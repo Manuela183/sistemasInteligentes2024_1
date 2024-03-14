@@ -16,9 +16,9 @@ def generar_poblacion_inicial(n, x, pesos):
 
     while pesoIndividuo > 15:
       poblInicial[i] = np.random.randint(0, 2, (1, x))
+      pesoIndividuo = 0
       for m in range(n):
-        for n in range(x):
-          pesoIndividuo += poblInicial[m][n] * pesos[n]
+        pesoIndividuo += poblInicial[i][m] * pesos[m]
 
   return poblInicial
 
