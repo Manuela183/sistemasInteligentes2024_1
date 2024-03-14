@@ -8,10 +8,18 @@ import numpy as np
 #Función para generar poblacion inicial
 def generar_poblacion_inicial(n, x, pesos):
   poblInicial = np.random.randint(0, 2, (n, x))
+  print("Población inicial: ", poblInicial)
   for i in range(n):
+    pesoIndividuo = 0
     for j in range(x):
-      while poblInicial[i][j]*pesos[j] > 15:
-        poblInicial[i][j] = np.random.randint(0, 2)
+      pesoIndividuo += poblInicial[i][j] * pesos[j]
+
+    while pesoIndividuo > 15:
+      poblInicial[i] = np.random.randint(0, 2, (1, x))
+      for m in range(n):
+        for n in range(x):
+          pesoIndividuo += poblInicial[m][n] * pesos[n]
+
   return poblInicial
 
 
@@ -185,7 +193,7 @@ imprime(n,total,fitness,poblIt, pesoFinal)
 ##### ***************************************
 # Inicia Iteraciones
 
-for iter in range(100):
+for iter in range(2):
   print("----------------- Generación ", iter+1, " -----------------\n")
   nueva_generacion = []
   iteracion = iter+1
