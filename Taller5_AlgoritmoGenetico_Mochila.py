@@ -13,6 +13,7 @@ def generar_poblacion_inicial(n, x, pesos):
     pesoIndividuo = 0
     for j in range(x):
       pesoIndividuo += poblInicial[i][j] * pesos[j]
+      
 
     while pesoIndividuo > 15:
       poblInicial[i] = np.random.randint(0, 2, (1, x))
@@ -175,11 +176,18 @@ total = 0
 pesos = [7, 6, 8, 2]
 utilidad = [4, 5, 6, 3]
 
-poblIt = generar_poblacion_inicial(n, x, pesos)
+#poblIt = generar_poblacion_inicial(n, x, pesos)
 
-print("Poblacion inicial:","\n", poblIt)
+poblInicial = np.random.randint(0, 2, (n, x))
+print("Poblacion inicial Aleatoria:","\n", poblInicial)
+print("\n","Utilidad:", utilidad) 
+print("\n","Pesos", pesos )   
+poblIt=poblInicial
+
+
+'''print("Poblacion inicial:","\n", poblIt)
 print("\n","Utilidad:", utilidad)
-print("\n","Pesos", pesos )
+print("\n","Pesos", pesos )'''
 
 ######  FIN DE LOS DATOS INICIALES  ######
 
@@ -197,6 +205,7 @@ for iter in range(2):
   print("----------------- Generación ", iter+1, " -----------------\n")
   nueva_generacion = []
   iteracion = iter+1
+  
   while(len(nueva_generacion) < n):
     print("\nIteración ", iteracion, "\n")
     papa1=seleccion(acumulado) # Padre 1
@@ -220,10 +229,11 @@ for iter in range(2):
 
     nueva_generacion = evaluar_aceptacion_individuo(pesoHijoA, pesoHijoB, PesoMochila, nueva_generacion)
     iteracion += 1    
+    print("\nPeso Final de generación después de recorrer cada hijo: ", pesoFinal)
 
   poblIt = np.array(nueva_generacion)
-  print("\n","Nueva poblacion Iteración ", iter+1,"\n", poblIt)
-  fitness,total, pesoFinal=calculo_tabla(n,x,poblIt,utilidad,pesoFinal)
+  print("\n","Nueva poblacion Iteración ", iter+1,"\n", poblIt, "Nuevo Peso Final: ", pesoFinal)
+  fitness,total, pesoFinal=calculo_tabla(n,x,poblIt,utilidad,pesos)
 
   ##### imprime la tabla de la iteracion
   imprime(n,total,fitness,poblIt,pesoFinal)
